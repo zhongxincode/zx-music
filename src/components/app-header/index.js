@@ -3,6 +3,8 @@ import React, { memo } from "react";
 import { NavLink } from "react-router-dom";
 import { headerLinks } from "@/services/local-data";
 import { AppHeaderWrapper, HeaderLeft, HeaderRight } from "./style";
+import { Input } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 
 export default memo(function ZXAppHeader() {
   const showSelectItem = (item, index) => {
@@ -40,8 +42,13 @@ export default memo(function ZXAppHeader() {
           </div>
         </HeaderLeft>
         <HeaderRight>
-          {/* <div className="center">创作者中心</div>
-          <div className="">登录</div> */}
+          <Input
+            className={"search"}
+            placeholder={"音乐/视频/电台/用户"}
+            prefix={<SearchOutlined />}
+          />
+          <div className="center">创作者中心</div>
+          <div className="">登录</div>
         </HeaderRight>
       </div>
       <div className="divider"></div>
