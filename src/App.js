@@ -1,9 +1,18 @@
-import React, { memo } from 'react'
+import React, { memo } from "react";
+import { renderRoutes } from "react-router-config";
+import { HashRouter } from "react-router-dom";
+
+import routes from "./router";
+
+import ZXAppHeader from "@/components/app-header";
+import ZXAppFooter from "@/components/app-footer";
 
 export default memo(function App() {
   return (
-    <div>
-      <h2>hello</h2>
-    </div>
-  )
-})
+    <HashRouter>
+      <ZXAppHeader />
+      {renderRoutes(routes)}
+      <ZXAppFooter />
+    </HashRouter>
+  );
+});
