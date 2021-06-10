@@ -1,10 +1,6 @@
 /* @import '~antd/dist/antd.css'; */
 @import "~normalize.css";
 
-html {
-  font-size: 62.5%;
-}
-
 /* 样式的重置 */
 body, html, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, header, menu, section, p, input, td, th, ins {
   padding: 0;
@@ -59,12 +55,12 @@ body, textarea, select, input, button {
 }
 
 .wrap-v1 {
-  width: 110rem;
+  width: 1100px;
   margin: 0 auto;
 }
 
 .wrap-v2 {
-  width: 98rem;
+  width: 980px;
   margin: 0 auto;
 }
 
@@ -127,7 +123,7 @@ body, textarea, select, input, button {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 6rem;
+  bottom: 60px;
   background-color: rgba(0, 0, 0, .5);
   color: #fff;
 }
