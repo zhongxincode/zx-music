@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const RecommendWraper = styled.div`
+export const RecommendWrapper = styled.div`
 
 `
 
