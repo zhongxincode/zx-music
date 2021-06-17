@@ -1,15 +1,31 @@
 import React, { memo } from "react";
 
-import ZXTopBanner from './c-pages/top-banner'
+import ZXTopBanner from "./c-pages/top-banner";
+import ZXHotRecommend from "./c-pages/hot-recommend";
+import ZXNewAlbum from "./c-pages/new-album";
+import ZXRecommendRanking from "./c-pages/recommend-ranking";
 
 import {
   RecommendWrapper,
-} from './style'
-function ZXRecommend() {
+  Content,
+  RecommendLeft,
+  RecommendRight,
+} from "./style";
 
-  return <RecommendWrapper>
-    <ZXTopBanner />
-  </RecommendWrapper>;
+function ZXRecommend() {
+  return (
+    <RecommendWrapper>
+      <ZXTopBanner />
+      <Content className={"wrap-v2"}>
+        <RecommendLeft>
+          <ZXHotRecommend />
+          <ZXNewAlbum />
+          <ZXRecommendRanking />
+        </RecommendLeft>
+        <RecommendRight></RecommendRight>
+      </Content>
+    </RecommendWrapper>
+  );
 }
 
 export default memo(ZXRecommend);
