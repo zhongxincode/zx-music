@@ -6,9 +6,12 @@ export function getTopBanners() {
   })
 }
 
-export function getHotRecommend() {
+export function getHotRecommends(limit) {
   return request({
-    url: "/personalized"
+    url: "/personalized",
+    params: {
+      limit
+    }
   })
 }
 
