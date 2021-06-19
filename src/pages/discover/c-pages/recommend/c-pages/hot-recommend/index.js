@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { shallowEqual } from "react-redux";
 
+import ZXThemeHeaderRCM from "@/components/theme-header-rcm";
+import ZXSongsCover from '@/components/songs-cover'
+
 import {HOT_RECOMMEND_LIMIT} from '@/common/contants.js'
 
 import { RecommendWrapper } from "./style";
 import {getHotRecommendAction} from '../../store/actionCreators'
-import ZXThemeHeaderRCM from "@/components/theme-header-rcm";
 
 
 export default memo(function ZXHotRecommend() {
@@ -32,8 +34,8 @@ export default memo(function ZXHotRecommend() {
       />
       <div className={"recommend-list"}>
         {
-          hotRecommends.map((item, index) => {
-            return <div>{item.name}</div>
+          hotRecommends.map((item, ind) => {
+            return <ZXSongsCover key={item.id} info={item} />
           })
         }
       </div>
