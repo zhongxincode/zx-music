@@ -4,6 +4,9 @@ import ZXTopBanner from "./c-pages/top-banner";
 import ZXHotRecommend from "./c-pages/hot-recommend";
 import ZXNewAlbum from "./c-pages/new-album";
 import ZXRankingList from "./c-pages/ranking-list";
+import ZXUserLogin from "./c-pages/user-login";
+import ZXSettleSingers from "./c-pages/settle-singer";
+import ZXHotRadio from "./c-pages/hot-radio";
 
 import {
   RecommendWrapper,
@@ -22,7 +25,11 @@ function ZXRecommend() {
           <ZXNewAlbum />
           <ZXRankingList />
         </RecommendLeft>
-        <RecommendRight></RecommendRight>
+        <RecommendRight>
+          <ZXUserLogin />
+          <ZXSettleSingers />
+          <ZXHotRadio />
+        </RecommendRight>
       </Content>
     </RecommendWrapper>
   );

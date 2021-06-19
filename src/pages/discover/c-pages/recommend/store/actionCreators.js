@@ -5,6 +5,7 @@ import {
   getHotRecommends,
   getNewAlbums,
   getTopList,
+  getArtistList,
 } from "@/services/recommend";
 
 const changeTopBannersAction = (res) => ({
@@ -35,6 +36,11 @@ const changeNewRankingAction = (res) => ({
 const changeOriginRankingAction = (res) => ({
   type: actionTypes.CHANGE_ORIGIN_LIST,
   originRanking: res.playlist,
+});
+
+const changeSettleSingersAction = (res) => ({
+  type: actionTypes.CHANGE_SETTLE_SONGER,
+  settleSingers: res.artists,
 });
 
 export const getTopBannersAction = () => {
@@ -76,6 +82,14 @@ export const getTopListAction = (idx) => {
           break;
         default:
       }
+    });
+  };
+};
+
+export const getSettleSingersAction = () => {
+  return (dispath) => {
+    getArtistList(5, 5001).then((res) => {
+      dispath(changeSettleSingersAction(res));
     });
   };
 };
