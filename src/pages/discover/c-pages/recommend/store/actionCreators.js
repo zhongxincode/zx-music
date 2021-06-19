@@ -66,13 +66,13 @@ export const getTopListAction = (idx) => {
     getTopList(idx).then((res) => {
       switch (idx) {
         case 0:
-          dispatch(changeUpRankingAction(res));
-          break;
-        case 2:
           dispatch(changeNewRankingAction(res));
           break;
-        case 3:
+        case 2:
           dispatch(changeOriginRankingAction(res));
+          break;
+        case 3:
+          dispatch(changeUpRankingAction(res));
           break;
         default:
       }
