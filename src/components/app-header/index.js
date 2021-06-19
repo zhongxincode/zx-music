@@ -10,7 +10,7 @@ export default memo(function ZXAppHeader() {
   const showSelectItem = (item, index) => {
     if (index < 3) {
       return (
-        <NavLink exact to={item.link}>
+        <NavLink to={item.link}>
           {item.title}
           <i className={"sprite_01 icon"}></i>
         </NavLink>

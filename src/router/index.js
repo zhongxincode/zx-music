@@ -9,6 +9,7 @@ import ZXArtist from "@/pages/discover/c-pages/artist";
 import ZXDjradio from "@/pages/discover/c-pages/djradio";
 import ZXToplist from "@/pages/discover/c-pages/toplist";
 import ZXPlaylist from "@/pages/discover/c-pages/playlist";
+import ZXPlayer from "@/pages/player";
 
 const routes = [
   {
@@ -48,6 +49,10 @@ const routes = [
       {
         path: "/discover/album",
         component: ZXAlbum,
+      },
+      {
+        path: "/discover/player",
+        component: ZXPlayer,
       },
     ],
   },

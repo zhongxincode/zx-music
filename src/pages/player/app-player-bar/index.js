@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useRef, useState, useCallback } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 import { Slider } from "antd";
 
@@ -88,9 +89,9 @@ export default memo(function ZXAppPlayerBar() {
         </Control>
         <PlayInfo>
           <div className="image">
-            <a href="/todo">
+            <NavLink to={"/discover/player"}>
               <img src={getSizeImage(picUrl, 35)} alt="" />
-            </a>
+            </NavLink>
           </div>
           <div className="info">
             <div className="song">
