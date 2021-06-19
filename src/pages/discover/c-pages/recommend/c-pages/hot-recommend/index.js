@@ -6,7 +6,7 @@ import { shallowEqual } from "react-redux";
 import ZXThemeHeaderRCM from "@/components/theme-header-rcm";
 import ZXSongsCover from '@/components/songs-cover'
 
-import {HOT_RECOMMEND_LIMIT} from '@/common/contants.js'
+import {HOT_RECOMMEND_LIMIT} from '@/common/constants.js'
 
 import { RecommendWrapper } from "./style";
 import {getHotRecommendAction} from '../../store/actionCreators'

@@ -8,6 +8,7 @@ import store from "./store";
 
 import ZXAppHeader from "@/components/app-header";
 import ZXAppFooter from "@/components/app-footer";
+import ZXAppPlayerBar from '@/pages/player/app-player-bar'
 
 export default memo(function App() {
   return (
@@ -16,6 +17,7 @@ export default memo(function App() {
         <ZXAppHeader />
         {renderRoutes(routes)}
         <ZXAppFooter />
+        <ZXAppPlayerBar />
       </HashRouter>
     </Provider>
   );
