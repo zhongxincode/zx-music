@@ -4,6 +4,7 @@ import {
   getTopBanners,
   getHotRecommends,
   getNewAlbums,
+  getTopList,
 } from "@/services/recommend";
 
 const changeTopBannersAction = (res) => ({
@@ -19,6 +20,21 @@ const changeHotRecommendAction = (res) => ({
 const changeNewAlbumsAction = (res) => ({
   type: actionTypes.CHANGE_NEW_ALBUM,
   newAlbums: res.albums,
+});
+
+const changeUpRankingAction = (res) => ({
+  type: actionTypes.CHANGE_UP_LIST,
+  upRanking: res.playlist,
+});
+
+const changeNewRankingAction = (res) => ({
+  type: actionTypes.CHANGE_NEW_LIST,
+  newRanking: res.playlist,
+});
+
+const changeOriginRankingAction = (res) => ({
+  type: actionTypes.CHANGE_ORIGIN_LIST,
+  originRanking: res.playlist,
 });
 
 export const getTopBannersAction = () => {
@@ -42,5 +58,24 @@ export const getNewAlbumsAction = (limit, offset) => {
     getNewAlbums(limit, offset).then((res) =>
       dispatch(changeNewAlbumsAction(res))
     );
+  };
+};
+
+export const getTopListAction = (idx) => {
+  return (dispatch) => {
+    getTopList(idx).then((res) => {
+      switch (idx) {
+        case 0:
+          dispatch(changeUpRankingAction(res));
+          break;
+        case 2:
+          dispatch(changeNewRankingAction(res));
+          break;
+        case 3:
+          dispatch(changeOriginRankingAction(res));
+          break;
+        default:
+      }
+    });
   };
 };

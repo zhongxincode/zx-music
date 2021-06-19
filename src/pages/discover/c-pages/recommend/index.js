@@ -3,7 +3,7 @@ import React, { memo } from "react";
 import ZXTopBanner from "./c-pages/top-banner";
 import ZXHotRecommend from "./c-pages/hot-recommend";
 import ZXNewAlbum from "./c-pages/new-album";
-import ZXRecommendRanking from "./c-pages/recommend-ranking";
+import ZXRankingList from "./c-pages/ranking-list";
 
 import {
   RecommendWrapper,
@@ -20,7 +20,7 @@ function ZXRecommend() {
         <RecommendLeft>
           <ZXHotRecommend />
           <ZXNewAlbum />
-          <ZXRecommendRanking />
+          <ZXRankingList />
         </RecommendLeft>
         <RecommendRight></RecommendRight>
       </Content>
