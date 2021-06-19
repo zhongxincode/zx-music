@@ -106,6 +106,7 @@ export default memo(function ZXAppPlayerBar() {
                 value={progress}
                 onChange={sliderChange}
                 onAfterChange={sliderAfterChange}
+                tooltipVisible={false}
               />
               <div className="time">
                 <span className="now-time">{showCurrentTime}</span>
