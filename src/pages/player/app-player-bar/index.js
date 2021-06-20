@@ -5,7 +5,11 @@ import { NavLink } from "react-router-dom";
 import { Slider } from "antd";
 
 import { Control, Operator, PlayerBarWrapper, PlayInfo } from "./style";
-import { getSongDetailAction } from "../store/actionCreators";
+import {
+  changeCurrentSongByBtnAcion,
+  changeSequenceAction,
+  getSongDetailAction,
+} from "../store/actionCreators";
 import {
   formatMinuteSecond,
   getPlayUrl,
@@ -19,10 +23,13 @@ export default memo(function ZXAppPlayerBar() {
   const [isChanging, setIsChanging] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   // redux hooks
-  const { currentSong } = useSelector(
+  const { currentSong, sequence } = useSelector(
     (state) => ({
       currentSong: state.getIn(["player", "currentSong"]),
-    }),shallowEqual);
+      sequence: state.getIn(["player", "sequence"]),
+    }),
+    shallowEqual
+  );
   const dispatch = useDispatch();
   // hooks
   const audioRef = useRef();
@@ -31,6 +38,10 @@ export default memo(function ZXAppPlayerBar() {
   }, [dispatch]);
   useEffect(() => {
     audioRef.current.src = getPlayUrl(currentSong.id);
+    audioRef.current
+      .play()
+      .then((res) => setIsPlaying(true))
+      .catch((err) => setIsPlaying(false));
   }, [currentSong]);
   // other handle
   const picUrl = (currentSong.al && currentSong.al.picUrl) || "";
@@ -49,6 +60,27 @@ export default memo(function ZXAppPlayerBar() {
     if (!isChanging) {
       setCurrentTime(e.target.currentTime * 1000);
       setProgress((currentTime / duration) * 100);
+    }
+  };
+
+  const changeSequence = () => {
+    let currenSequence = sequence + 1;
+    if (currenSequence > 2) {
+      currenSequence = 0;
+    }
+    dispatch(changeSequenceAction(currenSequence));
+  };
+
+  const changeMusic = (tag) => {
+    dispatch(changeCurrentSongByBtnAcion(tag));
+  };
+
+  const handleMusicEnded = () => {
+    if (sequence === 2) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    } else {
+      dispatch(changeCurrentSongByBtnAcion(1));
     }
   };
 
@@ -80,12 +112,18 @@ export default memo(function ZXAppPlayerBar() {
     <PlayerBarWrapper className={"sprite_playerbar"}>
       <div className="content wrap-v2">
         <Control isPlaying={isPlaying}>
-          <button className="sprite_playerbar prev"></button>
+          <button
+            className="sprite_playerbar prev"
+            onClick={(e) => changeMusic(-1)}
+          ></button>
           <button
             className="sprite_playerbar play"
             onClick={(e) => playMusic()}
           ></button>
-          <button className="sprite_playerbar next"></button>
+          <button
+            className="sprite_playerbar next"
+            onClick={(e) => changeMusic(1)}
+          ></button>
         </Control>
         <PlayInfo>
           <div className="image">
@@ -117,19 +155,26 @@ export default memo(function ZXAppPlayerBar() {
             </div>
           </div>
         </PlayInfo>
-        <Operator>
+        <Operator sequence={sequence}>
           <div className="left">
             <button className="sprite_playerbar btn favor"></button>
             <button className="sprite_playerbar btn share"></button>
           </div>
           <div className="right sprite_playerbar">
             <button className="sprite_playerbar btn volume"></button>
-            <button className="sprite_playerbar btn loop"></button>
+            <button
+              className="sprite_playerbar btn loop"
+              onClick={changeSequence}
+            ></button>
             <button className="sprite_playerbar btn playlist"></button>
           </div>
         </Operator>
       </div>
-      <audio ref={audioRef} onTimeUpdate={timeUpdate} />
+      <audio
+        ref={audioRef}
+        onTimeUpdate={timeUpdate}
+        onEnded={handleMusicEnded}
+      />
     </PlayerBarWrapper>
   );
 });
