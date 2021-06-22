@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import { Slider, message } from "antd";
 
+import ZXAppPlayerPanel from "../app-play-panel";
 import { Control, Operator, PlayerBarWrapper, PlayInfo } from "./style";
 import {
   changeCurrentLyricIndexAction,
@@ -23,17 +24,19 @@ export default memo(function ZXAppPlayerBar() {
   const [progress, setProgress] = useState(0);
   const [isChanging, setIsChanging] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showPanel, setShowPanel] = useState(false);
   // redux hooks
-  const { currentSong, sequence, lyricArray, currentLyricIndex, playList } = useSelector(
-    (state) => ({
-      currentSong: state.getIn(["player", "currentSong"]),
-      sequence: state.getIn(["player", "sequence"]),
-      lyricArray: state.getIn(["player", "lyricArray"]),
-      currentLyricIndex: state.getIn(["player", "currentLyricIndex"]),
-      playList: state.getIn(["player", "playList"])
-    }),
-    shallowEqual
-  );
+  const { currentSong, sequence, lyricArray, currentLyricIndex, playList } =
+    useSelector(
+      (state) => ({
+        currentSong: state.getIn(["player", "currentSong"]),
+        sequence: state.getIn(["player", "sequence"]),
+        lyricArray: state.getIn(["player", "lyricArray"]),
+        currentLyricIndex: state.getIn(["player", "currentLyricIndex"]),
+        playList: state.getIn(["player", "playList"]),
+      }),
+      shallowEqual
+    );
   const dispatch = useDispatch();
   // hooks
   const audioRef = useRef();
@@ -78,9 +81,8 @@ export default memo(function ZXAppPlayerBar() {
         break;
       }
     }
-    let findIndex = ((i === 0) ? 1 : i - 1);
+    let findIndex = i === 0 ? 1 : i - 1;
     if (currentLyricIndex !== findIndex) {
-      console.log(currentTime, lyricArray[findIndex]);
       dispatch(changeCurrentLyricIndexAction(findIndex));
       let content = lyricArray[findIndex] && lyricArray[findIndex].content;
       message.open({
@@ -195,7 +197,12 @@ export default memo(function ZXAppPlayerBar() {
               className="sprite_playerbar btn loop"
               onClick={changeSequence}
             ></button>
-            <button className="sprite_playerbar btn playlist">{showPlayListLength}</button>
+            <button
+              className="sprite_playerbar btn playlist"
+              onClick={(e) => setShowPanel(!showPanel)}
+            >
+              {showPlayListLength}
+            </button>
           </div>
         </Operator>
       </div>
@@ -204,6 +211,7 @@ export default memo(function ZXAppPlayerBar() {
         onTimeUpdate={timeUpdate}
         onEnded={handleMusicEnded}
       />
+      {showPanel && <ZXAppPlayerPanel />}
     </PlayerBarWrapper>
   );
 });

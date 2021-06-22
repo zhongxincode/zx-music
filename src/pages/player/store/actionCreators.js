@@ -3,7 +3,7 @@ import * as actionTypes from "./constants";
 import { getLyric, getSongDetail } from "@/services/player";
 import { parseLyric } from "@/utils/lrc-parse";
 
-const changeCurrentSongAction = (currentSong) => ({
+export const changeCurrentSongAction = (currentSong) => ({
   type: actionTypes.CHANGE_CURRENT_SONG,
   currentSong,
 });
@@ -13,7 +13,7 @@ const changePlayListAction = (playList) => ({
   playList,
 });
 
-const changeCurrentSongIndexAction = (currentSongIndex) => ({
+export const changeCurrentSongIndexAction = (currentSongIndex) => ({
   type: actionTypes.CHANGE_CURRENT_SONG_INDEX,
   currentSongIndex,
 });
@@ -99,7 +99,7 @@ export const getSongDetailAction = (ids) => {
 export const getLyricAction = (id) => {
   return (dispatch) => {
     getLyric(id).then((res) => {
-      const lyric = res.lrc.lyric;
+      const lyric = (res.lrc && res.lrc.lyric) || "暂时没有歌词";
       const lyricArray = parseLyric(lyric);
       dispatch(changeLyricArrayAction(lyricArray))
     });
