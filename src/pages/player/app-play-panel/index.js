@@ -5,7 +5,7 @@ import ZXPlayList from './c-cpns/play-list';
 import ZXLyricPanel from './c-cpns/lyric-panel';
 import { PanelWrapper } from './style';
 
-export default memo(function ZXAppPlayPanel() {
+export default memo(function HYAppPlayList() {
   return (
     <PanelWrapper>
       <ZXPlayHeader/>

@@ -2,7 +2,8 @@ import React, { memo, useEffect, useRef, useState, useCallback } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import { Slider, message } from "antd";
+import { Slider } from "antd";
+// import { message } from "antd";
 
 import ZXAppPlayerPanel from "../app-play-panel";
 import { Control, Operator, PlayerBarWrapper, PlayInfo } from "./style";
@@ -84,13 +85,15 @@ export default memo(function ZXAppPlayerBar() {
     let findIndex = i === 0 ? 1 : i - 1;
     if (currentLyricIndex !== findIndex) {
       dispatch(changeCurrentLyricIndexAction(findIndex));
-      let content = lyricArray[findIndex] && lyricArray[findIndex].content;
-      message.open({
-        content,
-        key: "lyric",
-        duration: 0,
-        className: "lyric-message",
-      });
+      // let content = lyricArray[findIndex] && lyricArray[findIndex].content;
+      // if (!showPanel) {
+      //   message.open({
+      //     content,
+      //     key: "lyric",
+      //     duration: 0,
+      //     className: "lyric-message",
+      //   });
+      // }
     }
   };
 

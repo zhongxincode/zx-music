@@ -1,6 +1,6 @@
 import * as actionTypes from "./constants";
 
-import { getLyric, getSongDetail } from "@/services/player";
+import { getLyric, getSongDetail, getSimiPlaylist, getSimiSong } from "@/services/player";
 import { parseLyric } from "@/utils/lrc-parse";
 
 export const changeCurrentSongAction = (currentSong) => ({
@@ -31,6 +31,16 @@ export const changeSequenceAction = (sequence) => ({
 export const changeCurrentLyricIndexAction = (currentLyricIndex) => ({
   type: actionTypes.CHANGE_CURRENT_LYRIC_INDEX,
   currentLyricIndex,
+})
+
+const changeSimiPlaylistAction = (res) => ({
+  type: actionTypes.CHANGE_SIMI_PLAYLIST,
+  simiPlaylist: res.playlists
+})
+
+const changeSimiSongsAction = (res) => ({
+  type: actionTypes.CHANGE_SIMI_SONGS,
+  simiSongs: res.songs
 })
 
 export const changeCurrentSongByBtnAcion = (tag) => {
@@ -105,3 +115,25 @@ export const getLyricAction = (id) => {
     });
   };
 };
+
+export const getSimiPlaylistAction = () => {
+  return (dispatch, getState) => {
+    const id = getState().getIn(["player", "currentSong"]).id;
+    if (!id) return;
+
+    getSimiPlaylist(id).then(res => {
+      dispatch(changeSimiPlaylistAction(res));
+    })
+  }
+}
+
+export const getSimiSongAction = () => {
+  return (dispatch, getState) => {
+    const id = getState().getIn(["player", "currentSong"]).id;
+    if (!id) return;
+
+    getSimiSong(id).then(res => {
+      dispatch(changeSimiSongsAction(res));
+    })
+  }
+}
