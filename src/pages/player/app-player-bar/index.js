@@ -2,10 +2,11 @@ import React, { memo, useEffect, useRef, useState, useCallback } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import { Slider } from "antd";
+import { Slider, message } from "antd";
 
 import { Control, Operator, PlayerBarWrapper, PlayInfo } from "./style";
 import {
+  changeCurrentLyricIndexAction,
   changeCurrentSongByBtnAcion,
   changeSequenceAction,
   getSongDetailAction,
@@ -23,10 +24,13 @@ export default memo(function ZXAppPlayerBar() {
   const [isChanging, setIsChanging] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   // redux hooks
-  const { currentSong, sequence } = useSelector(
+  const { currentSong, sequence, lyricArray, currentLyricIndex, playList } = useSelector(
     (state) => ({
       currentSong: state.getIn(["player", "currentSong"]),
       sequence: state.getIn(["player", "sequence"]),
+      lyricArray: state.getIn(["player", "lyricArray"]),
+      currentLyricIndex: state.getIn(["player", "currentLyricIndex"]),
+      playList: state.getIn(["player", "playList"])
     }),
     shallowEqual
   );
@@ -50,6 +54,7 @@ export default memo(function ZXAppPlayerBar() {
   const duration = currentSong.dt || 0;
   const showDuration = formatMinuteSecond(duration);
   const showCurrentTime = formatMinuteSecond(currentTime);
+  const showPlayListLength = playList.length || "";
   // handle function
   const playMusic = useCallback(() => {
     isPlaying ? audioRef.current.pause() : audioRef.current.play();
@@ -57,9 +62,33 @@ export default memo(function ZXAppPlayerBar() {
   }, [isPlaying]);
 
   const timeUpdate = (e) => {
+    const currentTime = e.target.currentTime;
     if (!isChanging) {
-      setCurrentTime(e.target.currentTime * 1000);
-      setProgress((currentTime / duration) * 100);
+      // 为什么这里乘了1000下面还要乘以1000呢？因为set是异步函数
+      setCurrentTime(currentTime * 1000);
+      setProgress(((currentTime * 1000) / duration) * 100);
+    }
+
+    // 获取当前歌词
+    let lrcLength = lyricArray.length;
+    let i = 0;
+    for (; i < lrcLength; i++) {
+      const lrcTime = lyricArray[i].time;
+      if (currentTime * 1000 < lrcTime) {
+        break;
+      }
+    }
+    let findIndex = ((i === 0) ? 1 : i - 1);
+    if (currentLyricIndex !== findIndex) {
+      console.log(currentTime, lyricArray[findIndex]);
+      dispatch(changeCurrentLyricIndexAction(findIndex));
+      let content = lyricArray[findIndex] && lyricArray[findIndex].content;
+      message.open({
+        content,
+        key: "lyric",
+        duration: 0,
+        className: "lyric-message",
+      });
     }
   };
 
@@ -166,7 +195,7 @@ export default memo(function ZXAppPlayerBar() {
               className="sprite_playerbar btn loop"
               onClick={changeSequence}
             ></button>
-            <button className="sprite_playerbar btn playlist"></button>
+            <button className="sprite_playerbar btn playlist">{showPlayListLength}</button>
           </div>
         </Operator>
       </div>

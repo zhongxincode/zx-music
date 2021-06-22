@@ -7,6 +7,8 @@ const defaultState = Map({
   currentSongIndex: 0,
   currentSong: {},
   sequence: 0, // 0 循环 1 随机 2 单曲
+  lyricArray: [],
+  currentLyricIndex: [],
 });
 
 function reducer(state = defaultState, action) {
@@ -19,6 +21,10 @@ function reducer(state = defaultState, action) {
       return state.set("currentSongIndex", action.currentSongIndex);
     case actionTypes.CHANGE_PLAY_SEQUENCE:
       return state.set("sequence", action.sequence);
+    case actionTypes.CHANGE_LYRICS:
+      return state.set("lyricArray", action.lyricArray);
+    case actionTypes.CHANGE_CURRENT_LYRIC_INDEX:
+      return state.set("currentLyricIndex", action.currentLyricIndex);
     default:
       return state;
   }
