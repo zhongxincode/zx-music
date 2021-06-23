@@ -3,7 +3,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 
 import { getSizeImage } from '@/utils/format-utils';
 
-import HYSongOperationBar from '@/components/song-operation-bar';
+import ZXSongOperationBar from '@/components/song-operation-bar';
 import {
   InfoWrapper,
   InfoLeft,
@@ -49,7 +49,7 @@ export default memo(function HYPlayerInfo() {
           <a href="/#" className="name">{currentSong.al.name}</a>
         </div>
 
-        <HYSongOperationBar favorTitle="收藏"
+        <ZXSongOperationBar favorTitle="收藏"
                             shareTitle="分享"
                             downloadTitle="下载"
                             commentTitle="(167366)"/>

@@ -1,6 +1,11 @@
 import * as actionTypes from "./constants";
 
-import { getLyric, getSongDetail, getSimiPlaylist, getSimiSong } from "@/services/player";
+import {
+  getLyric,
+  getSongDetail,
+  getSimiPlaylist,
+  getSimiSong,
+} from "@/services/player";
 import { parseLyric } from "@/utils/lrc-parse";
 
 export const changeCurrentSongAction = (currentSong) => ({
@@ -18,10 +23,10 @@ export const changeCurrentSongIndexAction = (currentSongIndex) => ({
   currentSongIndex,
 });
 
-const changeLyricArrayAction = lyricArray => ({
+const changeLyricArrayAction = (lyricArray) => ({
   type: actionTypes.CHANGE_LYRICS,
   lyricArray,
-})
+});
 
 export const changeSequenceAction = (sequence) => ({
   type: actionTypes.CHANGE_PLAY_SEQUENCE,
@@ -31,17 +36,17 @@ export const changeSequenceAction = (sequence) => ({
 export const changeCurrentLyricIndexAction = (currentLyricIndex) => ({
   type: actionTypes.CHANGE_CURRENT_LYRIC_INDEX,
   currentLyricIndex,
-})
+});
 
 const changeSimiPlaylistAction = (res) => ({
   type: actionTypes.CHANGE_SIMI_PLAYLIST,
-  simiPlaylist: res.playlists
-})
+  simiPlaylist: res.playlists,
+});
 
 const changeSimiSongsAction = (res) => ({
   type: actionTypes.CHANGE_SIMI_SONGS,
-  simiSongs: res.songs
-})
+  simiSongs: res.songs,
+});
 
 export const changeCurrentSongByBtnAcion = (tag) => {
   return (dispatch, getState) => {
@@ -86,7 +91,7 @@ export const getSongDetailAction = (ids) => {
       dispatch(changeCurrentSongIndexAction(songIndex));
       song = playList[songIndex];
       dispatch(changeCurrentSongAction(song));
-      dispatch(getLyricAction(song.id))
+      dispatch(getLyricAction(song.id));
     } else {
       getSongDetail(ids).then((res) => {
         song = res.songs && res.songs[0];
@@ -111,7 +116,7 @@ export const getLyricAction = (id) => {
     getLyric(id).then((res) => {
       const lyric = (res.lrc && res.lrc.lyric) || "暂时没有歌词";
       const lyricArray = parseLyric(lyric);
-      dispatch(changeLyricArrayAction(lyricArray))
+      dispatch(changeLyricArrayAction(lyricArray));
     });
   };
 };
@@ -121,19 +126,46 @@ export const getSimiPlaylistAction = () => {
     const id = getState().getIn(["player", "currentSong"]).id;
     if (!id) return;
 
-    getSimiPlaylist(id).then(res => {
+    getSimiPlaylist(id).then((res) => {
       dispatch(changeSimiPlaylistAction(res));
-    })
-  }
-}
+    });
+  };
+};
 
 export const getSimiSongAction = () => {
   return (dispatch, getState) => {
     const id = getState().getIn(["player", "currentSong"]).id;
     if (!id) return;
 
-    getSimiSong(id).then(res => {
+    getSimiSong(id).then((res) => {
       dispatch(changeSimiSongsAction(res));
-    })
-  }
-}
+    });
+  };
+};
+
+export const addPlayListAction = (item) => {
+  return (dispatch, getState) => {
+    // 1.根据id查找playlist中是否存在该歌曲
+    const playList = getState().getIn(["player", "playList"]);
+    const songIndex = playList.findIndex((song) => song.id === item.id);
+    let song = null;
+
+    // 2. 判断是否找到歌曲
+    if (songIndex !== -1) {
+      return;
+    } else {
+      getSongDetail(item.id).then((res) => {
+        song = res.songs && res.songs[0];
+        if (!song) return;
+        // 1.将请求到的歌曲添加到播放列表中
+        const newPlayList = [...playList, song];
+        // 2.更新redux中的值
+        dispatch(changePlayListAction(newPlayList));
+
+        // 获取该歌曲的歌词
+        // if (!song) return;
+        // dispatch(getLyricAction(song.id));
+      });
+    }
+  };
+};
