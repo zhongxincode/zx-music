@@ -23,9 +23,10 @@ export default memo(function ZXRankingList() {
     dispatch(getTopListAction(2));
     dispatch(getTopListAction(3));
   }, [dispatch]);
+
   return (
     <RankingWrapper>
-      <ZXThemeHeaderRCM title={"榜单"} />
+      <ZXThemeHeaderRCM title={"榜单"} moreLink={"/discover/toplist"} />
       <div className="tops">
         <ZXTopRanking info={upRanking} />
         <ZXTopRanking info={newRanking} />

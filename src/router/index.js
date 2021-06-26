@@ -8,8 +8,8 @@ const ZXRecommend = React.lazy(() => import("@/pages/discover/c-pages/recommend"
 const ZXAlbum = React.lazy(() => import("@/pages/discover/c-pages/album"));
 const ZXArtist = React.lazy(() => import("@/pages/discover/c-pages/artist"));
 const ZXDjradio = React.lazy(() => import("@/pages/discover/c-pages/djradio"));
-const ZXToplist = React.lazy(() => import("@/pages/discover/c-pages/toplist"));
-const ZXPlaylist = React.lazy(() => import("@/pages/discover/c-pages/playlist"));
+const ZXTopList = React.lazy(() => import("@/pages/discover/c-pages/toplist"));
+const ZXPlayList = React.lazy(() => import("@/pages/discover/c-pages/playlist"));
 const ZXPlayer = React.lazy(() => import("@/pages/player"));
 const ZXSearch = React.lazy(() => import("@/pages/search"))
 
@@ -34,11 +34,11 @@ const routes = [
       },
       {
         path: "/discover/toplist",
-        component: ZXToplist,
+        component: ZXTopList,
       },
       {
         path: "/discover/playlist",
-        component: ZXPlaylist,
+        component: ZXPlayList,
       },
       {
         path: "/discover/djradio",
