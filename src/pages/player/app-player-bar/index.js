@@ -42,7 +42,8 @@ export default memo(function ZXAppPlayerBar() {
   // hooks
   const audioRef = useRef();
   useEffect(() => {
-    dispatch(getSongDetailAction(66282));
+    localStorage.getItem("lastSongId");
+    dispatch(getSongDetailAction(localStorage.getItem("lastSongId") || 66282));
   }, [dispatch]);
   useEffect(() => {
     audioRef.current.src = getPlayUrl(currentSong.id);
@@ -50,10 +51,11 @@ export default memo(function ZXAppPlayerBar() {
       .play()
       .then((res) => setIsPlaying(true))
       .catch((err) => setIsPlaying(false));
+    // console.log("refresh");
   }, [currentSong]);
   // other handle
   const picUrl = (currentSong.al && currentSong.al.picUrl) || "";
-  const songName = currentSong.name || "未知gequ";
+  const songName = currentSong.name || "未知歌曲";
   const singerName = (currentSong.ar && currentSong.ar[0].name) || "未知歌手";
   const duration = currentSong.dt || 0;
   const showDuration = formatMinuteSecond(duration);

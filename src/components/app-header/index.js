@@ -1,10 +1,15 @@
 import React, { memo } from "react";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { headerLinks } from "@/services/local-data";
 import { AppHeaderWrapper, HeaderLeft, HeaderRight } from "./style";
 import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import {
+  changeKeywordsAction,
+  changeTypeAction,
+} from "../../pages/search/store/actionCreator";
 
 export default memo(function ZXAppHeader() {
   const showSelectItem = (item, index) => {
@@ -21,6 +26,17 @@ export default memo(function ZXAppHeader() {
           {item.title}
         </a>
       );
+    }
+  };
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    if (value) {
+      dispatch(changeKeywordsAction(value));
+      dispatch(changeTypeAction("1"));
+      history.push(`/search?keywords=${value}`);
     }
   };
 
@@ -46,6 +62,7 @@ export default memo(function ZXAppHeader() {
             className={"search"}
             placeholder={"音乐/视频/电台/用户"}
             prefix={<SearchOutlined />}
+            onPressEnter={(e) => handleSearch(e)}
           />
           <div className="center">创作者中心</div>
           <div className="">登录</div>

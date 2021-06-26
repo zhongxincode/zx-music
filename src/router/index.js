@@ -11,6 +11,7 @@ const ZXDjradio = React.lazy(() => import("@/pages/discover/c-pages/djradio"));
 const ZXToplist = React.lazy(() => import("@/pages/discover/c-pages/toplist"));
 const ZXPlaylist = React.lazy(() => import("@/pages/discover/c-pages/playlist"));
 const ZXPlayer = React.lazy(() => import("@/pages/player"));
+const ZXSearch = React.lazy(() => import("@/pages/search"))
 
 const routes = [
   {
@@ -65,6 +66,13 @@ const routes = [
     path: "/friend",
     component: ZXFriend,
   },
+  {
+    path: "/search",
+    component: ZXSearch,
+    routes: {
+      
+    }
+  }
 ];
 
 export default routes;

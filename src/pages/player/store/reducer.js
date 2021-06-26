@@ -16,6 +16,7 @@ const defaultState = Map({
 function reducer(state = defaultState, action) {
   switch (action.type) {
     case actionTypes.CHANGE_CURRENT_SONG:
+      localStorage.setItem("lastSongId", action.currentSong.id);
       return state.set("currentSong", action.currentSong);
     case actionTypes.CHANGE_PLAY_LIST:
       return state.set("playList", action.playList);

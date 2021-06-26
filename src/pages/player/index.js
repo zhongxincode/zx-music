@@ -10,7 +10,7 @@ import {
   PlayerRight
 } from './style';
 
-export default memo(function HYPlayer() {
+export default memo(function ZXPlayer() {
   return (
     <PlayerWrapper>
       <div className="content wrap-v2">

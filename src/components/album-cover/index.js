@@ -7,6 +7,7 @@ import {
 import {
   AlbumWrapper
 } from "./style";
+import { useColorChange } from '@/utils/color-change';
 
 
 export default memo(function ZXAlbumCover(props) {
@@ -19,8 +20,8 @@ export default memo(function ZXAlbumCover(props) {
         <a href="/todo" className="cover sprite_covor">{info.name}</a>
       </div>
       <div className="album-info">
-        <div className="name">{info.name}</div>
-        <div className="artist">{info.artist.name}</div>
+        <div className="name">{useColorChange(info.name)}</div>
+        <div className="artist">{useColorChange(info.artist.name)}</div>
       </div>
     </AlbumWrapper>
   )
