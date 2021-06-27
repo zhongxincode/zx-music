@@ -24,7 +24,7 @@ export default memo(function ZXPlayListCategory({setShowCategory}) {
   }
 
   return (
-    <CategoryWrapper>
+    <CategoryWrapper  onClick={e => e.stopPropagation()}>
       <div className="arrow sprite_icon"></div>
       <div className="all">
         <span className="link" onClick={e => selectCategory("全部")}>全部风格</span>
