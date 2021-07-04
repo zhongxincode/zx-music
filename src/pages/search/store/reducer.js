@@ -383,7 +383,7 @@ const defaultState = Map({
     ],
     playlistCount: 296,
   },
-  keywords: JSON.parse(localStorage.getItem("keywords")),
+  keywords: JSON.parse(localStorage.getItem("keywords")) || "",
   curType: JSON.parse(localStorage.getItem("curType")) || -1,
 });
 

@@ -19,7 +19,7 @@ export default memo(function ZXRankingHeader() {
   return (
     <RankingHeaderWrapper>
       <div className="image">
-        <img src={topInfo.coverImgUrl} alt="" />
+        <img src={topInfo && topInfo.coverImgUrl} alt="" />
         <span className="image_cover">封面</span>
       </div>
       <div className="info">

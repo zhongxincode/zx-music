@@ -1,9 +1,16 @@
-import React, { memo } from 'react'
+import React, { memo } from "react";
 
-export default memo(function ZXArtist() {
+import ZXArtistCategory from "./c-cpns/artist-category";
+import ZXArtistList from "./c-cpns/artist-list";
+import { ArtistWrapper } from "./style";
+
+export default memo(function HYArtist() {
   return (
-    <div>
-      ZXAlbum
-    </div>
-  )
-})
+    <ArtistWrapper>
+      <div className="content wrap-v2">
+        <ZXArtistCategory />
+        <ZXArtistList />
+      </div>
+    </ArtistWrapper>
+  );
+});
